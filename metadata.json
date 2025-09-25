@@ -1,0 +1,8 @@
+{
+  "name": "cabine-dressing-final",
+  "description": "cabine-dresing-final",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "prompt": ""
+}
