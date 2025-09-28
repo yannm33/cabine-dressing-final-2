@@ -1,60 +1,50 @@
-// src/components/RotatingHeaderText.tsx
+// src/pages/Home.tsx
 
-import React, { useEffect, useState } from "react";
+import RotatingHeaderText from "../components/RotatingHeaderText";
 
-const texts = [
-  "Et si votre dressing devenait votre terrain de jeu ?",
-  "La mode oublie, vous pouvez l’inventer.",
-  "Chaque vêtement est une émotion déguisée.",
-  "Habiller ses rêves, c’est déjà commencer à les vivre.",
-  "Votre style est une histoire, à vous de l’écrire.",
-  "Un look n’est pas une armure, c’est une révélation.",
-  "Et si l’essentiel n’était pas de plaire, mais de se plaire ?",
-  "Votre dressing est une scène, jouez votre rôle.",
-  "La vraie élégance, c’est de rester soi-même.",
-  "Vous êtes plus que vos vêtements, mais vos vêtements parlent pour vous.",
-  "Un miroir reflète, mais un style révèle.",
-  "Chaque pièce choisie est une note de votre mélodie.",
-  "Habillez vos instants comme s’ils comptaient… parce qu’ils comptent.",
-  "La mode passe, mais l’attitude reste.",
-  "Inventez l’allure qui vous ressemble, pas celle qu’on vous impose.",
-  "Vos habits ne sont pas des murs, mais des fenêtres.",
-  "Et si l’audace commençait dans votre placard ?",
-  "Votre dressing est un carnet de voyage : ouvrez-le.",
-  "Les vêtements changent, mais l’élan reste le vôtre.",
-  "Habiller l’instant, c’est lui donner une âme."
-];
-
-export default function RotatingHeaderText() {
-  const [index, setIndex] = useState(0);
-  const [fade, setFade] = useState(true);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFade(false);
-      setTimeout(() => {
-        setIndex((prev) => (prev + 1) % texts.length);
-        setFade(true);
-      }, 500);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
+export default function Home() {
   return (
-    <div className="text-center px-2 mt-1 max-w-3xl mx-auto">
-      {/* Texte rotatif avec animation fluide */}
-      <h2
-        className={`text-sm md:text-lg font-semibold transition-opacity duration-500 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        {texts[index]}
-      </h2>
+    <div className="relative min-h-screen flex flex-col items-center justify-start">
+      
+      {/* Bandeau langues + carousel fixé en haut */}
+      <div className="absolute top-2 left-0 right-0 flex flex-col items-center">
+        <RotatingHeaderText />
+      </div>
 
-      {/* Texte fixe optimisé pour tenir sur 2 lignes */}
-      <p className="text-xs md:text-base text-gray-700 mt-1 leading-snug max-w-2xl mx-auto">
-        Créez votre dressing pour n'importe quel look suivant votre humeur.
-      </p>
+      {/* Section principale */}
+      <main className="flex flex-col md:flex-row items-center justify-center flex-1 w-full px-4 md:px-12 mt-24 md:mt-32">
+        
+        {/* Texte gauche */}
+        <div className="max-w-xl text-center md:text-left">
+          <h1 className="text-lg md:text-2xl font-bold leading-snug mb-4">
+            Créez Votre dressing pour N’importe Quel Look suivant votre humeur.
+          </h1>
+
+          <p className="text-sm md:text-base text-gray-600 leading-relaxed mb-6">
+            Essayez vos tenues sans deviner. <br />
+            Téléchargez une photo et l’IA crée votre modèle personnel,
+            prêt à tout essayer. <br />
+            L’application classe et organise votre dressing : vêtements,
+            accessoires, bijoux… <br />
+            Composez vos looks en direct selon votre humeur. <br />
+            Un vrai dressing virtuel, toujours à portée de main.
+          </p>
+
+          <button className="bg-black text-white px-6 py-3 rounded-lg text-base md:text-lg font-semibold">
+            Télécharger une Photo
+          </button>
+        </div>
+
+        {/* Image droite */}
+        <div className="mt-8 md:mt-0 md:ml-12 w-full md:w-1/2 flex justify-center">
+          {/* 👉 Ici ton composant de comparaison d’images */}
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="w-full text-center py-4 text-xs text-gray-500">
+        © 2025 PixelShoot — Développé par Pixelshoot AI
+      </footer>
     </div>
   );
 }
