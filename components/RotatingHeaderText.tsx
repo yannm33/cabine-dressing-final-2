@@ -1,49 +1,59 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
-*/
-import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useLocalization } from '../contexts/LocalizationContext';
-import type { TranslationKey } from '../lib/translations';
+ */
 
-const SLOGAN_COUNT = 15;
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLocalization } from "../contexts/LocalizationContext";
 
-const RotatingHeaderText: React.FC = () => {
+const RotatingText: React.FC = () => {
   const { t } = useLocalization();
   const [index, setIndex] = useState(0);
 
-  const slogans = useMemo(() => {
-    return Array.from({ length: SLOGAN_COUNT }, (_, i) => 
-      t(`rotating_slogan_${i + 1}` as TranslationKey)
-    );
-  }, [t]);
+  // On récupère toutes les clés des slogans dans un tableau
+  const slogans = [
+    t("rotating_slogan_1"),
+    t("rotating_slogan_2"),
+    t("rotating_slogan_3"),
+    t("rotating_slogan_4"),
+    t("rotating_slogan_5"),
+    t("rotating_slogan_6"),
+    t("rotating_slogan_7"),
+    t("rotating_slogan_8"),
+    t("rotating_slogan_9"),
+    t("rotating_slogan_10"),
+    t("rotating_slogan_11"),
+    t("rotating_slogan_12"),
+    t("rotating_slogan_13"),
+    t("rotating_slogan_14"),
+    t("rotating_slogan_15"),
+  ];
 
+  // Rotation automatique toutes les 5 secondes
   useEffect(() => {
-    if (slogans.length === 0 || !slogans[0]) return;
-    const intervalId = setInterval(() => {
-      setIndex(prevIndex => (prevIndex + 1) % slogans.length);
-    }, 5000); // Change text every 5 seconds
-
-    return () => clearInterval(intervalId); // Cleanup on component unmount
-  }, [slogans]);
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slogans.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [slogans.length]);
 
   return (
-    <div className="relative h-8 flex-1 min-w-0">
-        <AnimatePresence mode="wait">
-        <motion.h1
-            key={slogans[index] || index}
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="absolute inset-0 flex items-center text-lg font-serif tracking-wide text-gray-800 whitespace-nowrap"
+    <div className="relative w-full text-center text-lg md:text-xl lg:text-2xl font-medium text-gray-700 h-12 flex items-center justify-center overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="absolute"
         >
-            {slogans[index]}
-        </motion.h1>
-        </AnimatePresence>
+          {slogans[index]}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
 
-export default RotatingHeaderText;
+export default RotatingText;
