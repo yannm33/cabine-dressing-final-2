@@ -37,8 +37,16 @@ export default function RotatingHeaderText() {
   }, []);
 
   return (
-    <h2 className="text-3xl md:text-4xl font-bold text-center px-4 leading-snug">
-      {texts[index]}
-    </h2>
+    <div className="text-center px-4">
+      {/* Texte qui défile (carousel) */}
+      <h2 className="text-xl md:text-2xl font-semibold leading-snug mb-3">
+        {texts[index]}
+      </h2>
+
+      {/* Sous-texte fixe */}
+      <p className="text-base md:text-lg text-gray-700">
+        Créez votre dressing pour n'importe quel look suivant votre humeur.
+      </p>
+    </div>
   );
 }
