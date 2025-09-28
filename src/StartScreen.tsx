@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const texts = [
   "Et si votre dressing devenait votre terrain de jeu ?",
-  "La mode oublie, vous pouvez l’inventer.",
   "Chaque vêtement est une émotion déguisée.",
   "Habiller ses rêves, c’est déjà commencer à les vivre.",
   "Votre style est une histoire, à vous de l’écrire.",
