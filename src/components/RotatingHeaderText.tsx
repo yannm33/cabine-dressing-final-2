@@ -37,7 +37,7 @@ export default function RotatingHeaderText() {
   }, []);
 
   return (
-    <h2 className="text-6xl md:text-8xl font-bold text-center px-4 leading-snug">
+    <h2 className="text-3xl md:text-4xl font-bold text-center px-4 leading-snug">
       {texts[index]}
     </h2>
   );
