@@ -35,29 +35,24 @@ export default function RotatingHeaderText() {
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % texts.length);
         setFade(true); // fade-in
-      }, 500); // durée du fade-out avant de changer
-    }, 4000); // ⏱️ toutes les 4 secondes
+      }, 500); // durée du fade-out
+    }, 4000); // toutes les 4 secondes
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="text-center px-4">
-      {/* Logo au-dessus */}
-      <div className="flex justify-center mb-2">
-        <span className="text-2xl">👕</span>
-      </div>
-
-      {/* Texte rotatif avec animation */}
+    <div className="text-center px-2 mt-2">
+      {/* Texte rotatif avec animation fluide */}
       <h2
-        className={`text-xl md:text-2xl font-semibold leading-snug mb-3 transition-opacity duration-500 ${
+        className={`text-base md:text-lg font-semibold transition-opacity duration-500 ${
           fade ? "opacity-100" : "opacity-0"
         }`}
       >
         {texts[index]}
       </h2>
 
-      {/* Texte fixe en dessous */}
-      <p className="text-sm md:text-base text-gray-700">
+      {/* Texte fixe en dessous, réduit */}
+      <p className="text-sm md:text-base text-gray-700 mt-1">
         Créez votre dressing pour n'importe quel look suivant votre humeur.
       </p>
     </div>
