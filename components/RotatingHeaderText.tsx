@@ -40,7 +40,8 @@ const RotatingText: React.FC = () => {
 
   return (
     <div className="relative w-full text-center text-lg md:text-xl lg:text-2xl font-medium text-gray-700 h-12 flex items-center justify-center overflow-hidden">
-      <AnimatePresence mode="wait">
+  <AnimatePresence mode="wait">
+
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}
