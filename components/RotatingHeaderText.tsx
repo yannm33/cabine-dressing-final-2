@@ -1,18 +1,10 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLocalization } from "../contexts/LocalizationContext";
 
-const RotatingText: React.FC = () => {
+export default function RotatingHeaderText() {
   const { t } = useLocalization();
-  const [index, setIndex] = useState(0);
-
-  // On récupère toutes les clés des slogans dans un tableau
-  const slogans = [
+  const texts = [
     t("rotating_slogan_1"),
     t("rotating_slogan_2"),
     t("rotating_slogan_3"),
@@ -30,31 +22,42 @@ const RotatingText: React.FC = () => {
     t("rotating_slogan_15"),
   ];
 
-  // Rotation automatique toutes les 5 secondes
+  const [index, setIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % slogans.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [slogans.length]);
+    let currentText = texts[index];
+    let i = 0;
+
+    const typeInterval = setInterval(() => {
+      setDisplayText(currentText.slice(0, i + 1));
+      i++;
+      if (i === currentText.length) {
+        clearInterval(typeInterval);
+        setTimeout(() => {
+          setIndex((prev) => (prev + 1) % texts.length);
+          setDisplayText("");
+        }, 3000); // pause après avoir écrit tout le texte
+      }
+    }, 50); // vitesse d’écriture
+
+    return () => clearInterval(typeInterval);
+  }, [index, texts]);
 
   return (
-    <div className="relative w-full text-center text-lg md:text-xl lg:text-2xl font-medium text-gray-700 h-12 flex items-center justify-center overflow-hidden">
-  <AnimatePresence mode="wait">
-
-        <motion.div
+    <div className="relative w-full text-center text-base md:text-lg lg:text-xl font-medium text-gray-800 h-14 flex items-center justify-center overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.span
           key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="absolute"
+          className="whitespace-pre-line font-mono" // 👈 police machine à écrire
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          {slogans[index]}
-        </motion.div>
+          {displayText}
+          <span className="animate-blink">|</span>
+        </motion.span>
       </AnimatePresence>
     </div>
   );
-};
-
-export default RotatingText;
+}
