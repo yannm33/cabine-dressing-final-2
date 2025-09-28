@@ -91,7 +91,6 @@ const StartScreen: React.FC<StartScreenProps> = ({ onModelFinalized }) => {
     }, 700);
   };
 
-
   return (
     <AnimatePresence mode="wait">
       {!userImageUrl ? (
@@ -102,7 +101,8 @@ const StartScreen: React.FC<StartScreenProps> = ({ onModelFinalized }) => {
         >
           <div className="lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
             <div className="max-w-lg">
-              <h1 className="text-5xl md:text-6xl font-serif font-bold text-gray-900 leading-tight">
+              {/* ⬇️ Taille réduite ici */}
+              <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 leading-snug">
                 {t('createYourModel')}
               </h1>
               <p className="mt-4 text-lg text-gray-600">
@@ -183,7 +183,6 @@ const StartScreen: React.FC<StartScreenProps> = ({ onModelFinalized }) => {
                   <motion.button 
                     onClick={(e) => {
                         handleButtonClick(e);
-                        // Delay finalization to allow animation to be visible
                         setTimeout(() => onModelFinalized(generatedModelUrl), 200);
                     }}
                     className="w-full sm:w-auto relative inline-flex items-center justify-center px-8 py-3 text-base font-semibold text-white bg-gray-900 rounded-md cursor-pointer group hover:bg-gray-700 transition-colors"
