@@ -21,7 +21,7 @@ export default function RotatingHeaderText() {
   useEffect(() => {
     const interval = setInterval(
       () => setIndex((prev) => (prev + 1) % texts.length),
-      4000 // ⏱️ 4 secondes entre chaque phrase
+      4000 // ⏱️5 secondes entre chaque phrase
     );
     return () => clearInterval(interval);
   }, []);
