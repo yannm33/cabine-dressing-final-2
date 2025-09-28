@@ -27,24 +27,37 @@ const texts = [
 
 export default function RotatingHeaderText() {
   const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => setIndex((prev) => (prev + 1) % texts.length),
-      4000 // ⏱️ 4 secondes entre chaque phrase
-    );
+    const interval = setInterval(() => {
+      setFade(false); // fade-out
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % texts.length);
+        setFade(true); // fade-in
+      }, 500); // durée du fade-out avant de changer
+    }, 4000); // ⏱️ toutes les 4 secondes
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="text-center px-4">
-      {/* Texte qui défile (carousel) */}
-      <h2 className="text-xl md:text-2xl font-semibold leading-snug mb-3">
+      {/* Logo au-dessus */}
+      <div className="flex justify-center mb-2">
+        <span className="text-2xl">👕</span>
+      </div>
+
+      {/* Texte rotatif avec animation */}
+      <h2
+        className={`text-xl md:text-2xl font-semibold leading-snug mb-3 transition-opacity duration-500 ${
+          fade ? "opacity-100" : "opacity-0"
+        }`}
+      >
         {texts[index]}
       </h2>
 
-      {/* Sous-texte fixe */}
-      <p className="text-base md:text-lg text-gray-700">
+      {/* Texte fixe en dessous */}
+      <p className="text-sm md:text-base text-gray-700">
         Créez votre dressing pour n'importe quel look suivant votre humeur.
       </p>
     </div>
