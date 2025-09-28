@@ -1,6 +1,6 @@
 // src/components/RotatingHeaderText.tsx
+
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const texts = [
   "Et si votre dressing devenait votre terrain de jeu ?",
@@ -13,33 +13,42 @@ const texts = [
   "Votre dressing est une scène, jouez votre rôle.",
   "La vraie élégance, c’est de rester soi-même.",
   "Vous êtes plus que vos vêtements, mais vos vêtements parlent pour vous.",
+  "Un miroir reflète, mais un style révèle.",
+  "Chaque pièce choisie est une note de votre mélodie.",
+  "Habillez vos instants comme s’ils comptaient… parce qu’ils comptent.",
+  "La mode passe, mais l’attitude reste.",
+  "Inventez l’allure qui vous ressemble, pas celle qu’on vous impose.",
+  "Vos habits ne sont pas des murs, mais des fenêtres.",
+  "Et si l’audace commençait dans votre placard ?",
+  "Votre dressing est un carnet de voyage : ouvrez-le.",
+  "Les vêtements changent, mais l’élan reste le vôtre.",
+  "Habiller l’instant, c’est lui donner une âme."
 ];
 
 export default function RotatingHeaderText() {
   const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(true);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => setIndex((prev) => (prev + 1) % texts.length),
-      4000 // ⏱️5 secondes entre chaque phrase
-    );
+    const interval = setInterval(() => {
+      setFade(false); // lance le fondu de sortie
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % texts.length);
+        setFade(true); // fondu d’entrée
+      }, 500); // durée du fondu (0.5s)
+    }, 5000); // ⏱️ 5 secondes par phrase
+
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="flex flex-col items-center">
-      <AnimatePresence mode="wait">
-        <motion.h2
-          key={index}
-          className="text-3xl md:text-4xl font-bold text-center px-4 leading-snug"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.8 }}
-        >
-          {texts[index]}
-        </motion.h2>
-      </AnimatePresence>
-    </div>
+    <h2
+      className={`
+        text-3xl md:text-4xl font-bold text-center px-4 leading-snug transition-opacity duration-500
+        ${fade ? "opacity-100" : "opacity-0"}
+      `}
+    >
+      {texts[index]}
+    </h2>
   );
 }
