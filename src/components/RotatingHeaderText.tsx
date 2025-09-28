@@ -31,28 +31,28 @@ export default function RotatingHeaderText() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setFade(false); // fade-out
+      setFade(false);
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % texts.length);
-        setFade(true); // fade-in
-      }, 500); // durée du fade-out
-    }, 4000); // toutes les 4 secondes
+        setFade(true);
+      }, 500);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="text-center px-2 mt-2">
+    <div className="text-center px-2 mt-1 max-w-3xl mx-auto">
       {/* Texte rotatif avec animation fluide */}
       <h2
-        className={`text-base md:text-lg font-semibold transition-opacity duration-500 ${
+        className={`text-sm md:text-lg font-semibold transition-opacity duration-500 ${
           fade ? "opacity-100" : "opacity-0"
         }`}
       >
         {texts[index]}
       </h2>
 
-      {/* Texte fixe en dessous, réduit */}
-      <p className="text-sm md:text-base text-gray-700 mt-1">
+      {/* Texte fixe optimisé pour tenir sur 2 lignes */}
+      <p className="text-xs md:text-base text-gray-700 mt-1 leading-snug max-w-2xl mx-auto">
         Créez votre dressing pour n'importe quel look suivant votre humeur.
       </p>
     </div>
